@@ -5,7 +5,9 @@ let getDirectories (path:string) :System.IO.DirectoryInfo[] =
     dir.GetDirectories()
 
 let cleanFileName (name:string) :string =
-    name.Replace(":","")
+    let stripChars text (chars:string) =
+        Array.fold (fun (s:string) c-> s.Replace(c.ToString(), "")) text (chars.ToCharArray())
+    stripChars name "<>:\"/\\|?*"
 
 let getAudioMimeTypes :string[] =
     [|
